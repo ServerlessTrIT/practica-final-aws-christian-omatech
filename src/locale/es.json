@@ -1,0 +1,10 @@
+{
+    "routes": {
+        "login": "/login",
+        "register": "/register",
+        "list": "/list",
+        "get": "/get",
+        "create": "/create",
+        "update": "/update"
+    }
+}

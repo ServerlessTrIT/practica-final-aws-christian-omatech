@@ -1,0 +1,38 @@
+Resources:
+    UserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: UserPool
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 8
+            RequireLowercase: true
+            RequireNumbers: true
+            RequireSymbols: true
+            RequireUppercase: true
+            TemporaryPasswordValidityDays: 15
+        UsernameAttributes:
+          - email
+        AutoVerifiedAttributes:
+          - email
+        EmailVerificationMessage: 'Tu código de verificación es {####}'
+        EmailVerificationSubject: 'Tu código para OmaLess'
+        MfaConfiguration: OFF
+        UserPoolTags:
+          Env: ${self:provider.stage}
+        AdminCreateUserConfig:
+          AllowAdminCreateUserOnly: false
+          InviteMessageTemplate:
+            EmailMessage: 'Esta es tu contraseña para tu cuenta {username} en OmaLess: {####}'
+            EmailSubject: 'Tu cuenta para OmaLess'
+        UsernameConfiguration:
+          CaseSensitive: false
+    UserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: UserPoolClient
+        ExplicitAuthFlows:
+          - USER_PASSWORD_AUTH
+        RefreshTokenValidity: 30
+        UserPoolId:
+          Ref: UserPool

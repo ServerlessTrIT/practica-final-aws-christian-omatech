@@ -1,0 +1,14 @@
+Resources:
+    books:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: books
+        AttributeDefinitions:
+          - AttributeName: isbn
+            AttributeType: S
+        KeySchema:
+          - AttributeName: isbn
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
